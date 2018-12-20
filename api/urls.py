@@ -1,7 +1,7 @@
 
 from django.urls import path, re_path
-from .views import ListVideo, DetailVideo
+from .views import ListDocs, DetailDocs
 urlpatterns = [
-    path('', ListVideo.as_view(), name='lista-video'),
-    path('get/<int:pk>/', DetailVideo.as_view(), name='detail-video'),
+    path('', ListDocs.as_view(), name='list-docs'),
+    path('get/<int:pk>/', DetailDocs.as_view(), name='detail-docs'),
 ]
