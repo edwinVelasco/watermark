@@ -17,10 +17,10 @@ def createQR():
     url = f'https://www.udes.edu.co/{ref}'
 
     qr2 = pyqrcode.create(url)
-    qr2.svg(f'{ref}.svg', scale=1)
+    qr2.svg(f'temp/{ref}.svg', scale=1)
 
-    my_canvas = canvas.Canvas(f'{ref}.pdf', pagesize=letter)
-    drawing = svg2rlg(f'{ref}.svg')
+    my_canvas = canvas.Canvas(f'temp/{ref}.pdf', pagesize=letter)
+    drawing = svg2rlg(f'temp/{ref}.svg')
     renderPDF.draw(drawing, my_canvas, 500, 70)
     my_canvas.setFont("Times-Roman", 10)
     my_canvas.drawString(60, 90, 'La autenticidad de este documento puede ser '
@@ -37,7 +37,7 @@ def create_pdf_out(ref):
     reader = PyPDF2.PdfFileReader(file)
     page = reader.getPage(0)
 
-    water = open(f'{ref}.pdf', 'rb')
+    water = open(f'temp/{ref}.pdf', 'rb')
     reader2 = PyPDF2.PdfFileReader(water)
     waterpage = reader2.getPage(0)
     page.mergePage(waterpage)
@@ -47,7 +47,8 @@ def create_pdf_out(ref):
                          reader.numPages):  # this will give length of book
         pageObj = reader.getPage(pageNum)
         writer.addPage(pageObj)
-    resultFile = open(f'{ref}_origin.pdf', 'wb')  # here we are writing so
+    resultFile = open(f'temp/{ref}_origin.pdf', 'wb')  # here we are
+    # writing so
     # 'wb' is for write binary
 
     writer.write(resultFile)

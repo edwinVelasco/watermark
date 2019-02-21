@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from .parameters import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c(v4dy_^_@_p#sms^fghuy6vs(fz83chbha(4kpiwf8%a+llv&'
+SECRET_KEY = DJ_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = DJ_DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = DJ_ALLOWED_HOSTS
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,7 @@ WSGI_APPLICATION = 'watermark.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'watermark_db',
+        'NAME': DBNAME,
     }
 }
 
@@ -111,18 +113,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'es-co'
+LANGUAGE_CODE = 'es-CO'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = DJ_TIME_ZONE
 
-USE_I18N = True
+USE_I18N = DJ_USE_I18N
 
-USE_L10N = True
+USE_L10N = DJ_USE_L10N
 
-USE_TZ = True
+USE_TZ = DJ_USE_TZ
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+CELERY_TASK_ALWAYS_EAGER = False
+CELERY_BROKER_URL = 'redis://' + CACHE_REDIS_HOST + ':' + CACHE_REDIS_PORT + '/0'
+CELERY_RESULT_BACKEND = 'django-db'
+
+# CELERY_RESULT_BACKEND = 'django-cache'

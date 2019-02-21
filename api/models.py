@@ -14,13 +14,28 @@ class Document(models.Model):
     doc_type = models.CharField(max_length=25)
     period = models.CharField(max_length=5)
     student = models.CharField(max_length=8)
-    sha224 = models.CharField(max_length=56)
+    dir_file = models.SlugField(max_length=100, null=True, default=None)
+
 
     class Meta:
         verbose_name = 'Documento'
         verbose_name_plural = 'Documentos'
         ordering = ('-create_at',)
-        db_table = 'api_documents'
+        db_table = 'api_v1_documents'
 
     def __str__(self):
         return self.title
+
+
+class Token(models.Model):
+    create_at = models.DateField(auto_now_add=True, auto_now=False)
+    token = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name = 'Token'
+        verbose_name_plural = 'Tokens'
+        ordering = ('-create_at',)
+        db_table = 'api_v1_token'
+
+    def __str__(self):
+        return self.token

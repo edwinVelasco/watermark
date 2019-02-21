@@ -2,3 +2,6 @@
 *.pyz
 *.sqlite3
 .idea/
+.vscode
+parameters.py
+temp/
