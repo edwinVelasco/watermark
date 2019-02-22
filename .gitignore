@@ -1,7 +1,10 @@
+parameters.py
+*.out
+*.egg-info
+*.pot
 *.py[co]
 *.pyz
 *.sqlite3
 .idea/
 .vscode
-parameters.py
 temp/

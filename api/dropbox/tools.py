@@ -24,14 +24,19 @@ class DropboxTools:
         :param path: Path in the user’s Dropbox to save the file.
         :param data: (bytes) – Contents to upload.
         :return: dict <msg, code>
+
+        mode=dropbox.dropbox.files.WriteMode.overwrite
+        if there is a file with the same name and title a new version
+        of it is created
         """
         try:
-            res = self.session.files_upload(data, path)
-            return {'code': 200, 'msg': res.path_display}
+            res = self.session.files_upload(data, path,
+                                            mode=dropbox.dropbox.
+                                            files.WriteMode.overwrite)
+            return {'code': 200, 'msg': res}
         except dropbox.exceptions.ApiError as error:
             print(error)
-            return {'code': 540, 'msg': 'Error al tratar de crear el '
-                                        'archivo en dropbox'}
+            return {'code': 540, 'msg': error}
 
     def download(self, path):
         """
@@ -44,7 +49,7 @@ class DropboxTools:
             return {'msg': sd, 'code': 200}
         except dropbox.exceptions.HttpError as error:
             print(error)
-            return {'msg': f'Archivo no encontrado {path}', 'code': 540}
+            return {'code': 540, 'msg': error}
 
     def remove_documents(self, list_path):
         """
@@ -61,5 +66,4 @@ class DropboxTools:
                            'éxito', 'code': 200}
         except Exception as error:
             print(error)
-            return {'msg': 'Error al tratar de borrar el listado de '
-                           'archivos vencidos', 'code': 540}
+            return {'code': 540, 'msg': error}
