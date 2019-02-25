@@ -11,17 +11,16 @@ class Document(models.Model):
     update_at = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     title = models.CharField(max_length=45, null=True)
-    slug = models.SlugField(max_length=100)
+    path = models.SlugField(max_length=100, null=True, default=None)
     doc_type = models.CharField(max_length=25)
     period = models.CharField(max_length=5)
     student = models.CharField(max_length=8)
-    dir_file = models.SlugField(max_length=100, null=True, default=None)
 
     class Meta:
         verbose_name = 'Documento'
         verbose_name_plural = 'Documentos'
         ordering = ('-create_at',)
-        db_table = 'api_v1_documents'
+        db_table = 'api_v1_document'
 
     def __str__(self):
         return self.title

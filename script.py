@@ -4,16 +4,19 @@ import dropbox
 # api_siga_postgraduate
 
 dbx = dropbox.Dropbox(
-    'Rld-8fG1VnAAAAAAAAAAKY3ITGSlhi-UaxdAi91QkmbSLbN_tW4lnvafL2ZLCEUR')
+    'Rld-8fG1VnAAAAAAAAAALt2xZ2mjRAf_aMV9ZRaYGzrJRVk0LXPQlLc2DeYQqbww')
 dbx.users_get_current_account()
 
 # for entry in dbx.files_list_folder('').entries:
 #     print(entry.name)
 #     print(entry)
 #     print('/n')
+# file = open('pol.pdf', 'rb')
 file = open('deuda.pdf', 'rb')
 res = dbx.files_upload(file.read(),
-                       '/cuc/18282004/CN/20190221143028COD18282004CN.pdf')
+                       '/cuc/18282004/CN/20190221143028COD18282004RX.pdf',
+                       mode=dropbox.dropbox.files.WriteMode.overwrite,
+                       mute=True)
 print(res)
 
 # res = dbx.files_delete_v2('/cuc/18282004/CN/20190221143028COD18282004CN.pdf')
