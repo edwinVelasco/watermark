@@ -128,7 +128,7 @@ USE_TZ = DJ_USE_TZ
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 CELERY_TASK_ALWAYS_EAGER = False
 CELERY_BROKER_URL = 'redis://' + CACHE_REDIS_HOST + ':' + CACHE_REDIS_PORT + '/0'
